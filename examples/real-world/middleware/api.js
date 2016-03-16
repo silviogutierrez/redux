@@ -22,7 +22,14 @@ const API_ROOT = 'https://api.github.com/'
 // Fetches an API response and normalizes the result JSON according to schema.
 // This makes every API response have the same shape, regardless of how nested it was.
 function callApi(endpoint, schema) {
-  const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
+    let fullUrl;
+
+    if (endpoint[0] !== '/') {
+      fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
+    }
+    else {
+        fullUrl = endpoint;
+    }
 
   return fetch(fullUrl)
     .then(response =>
@@ -58,6 +65,16 @@ const repoSchema = new Schema('repos', {
   idAttribute: 'fullName'
 })
 
+const widgetSchema = new Schema('widgets', {
+});
+
+const factorySchema = new Schema('factories', {
+});
+
+widgetSchema.define({
+    factory: factorySchema,
+});
+
 repoSchema.define({
   owner: userSchema
 })
@@ -67,7 +84,11 @@ export const Schemas = {
   USER: userSchema,
   USER_ARRAY: arrayOf(userSchema),
   REPO: repoSchema,
-  REPO_ARRAY: arrayOf(repoSchema)
+  REPO_ARRAY: arrayOf(repoSchema),
+  WIDGET: widgetSchema,
+  WIDGET_ARRAY: arrayOf(widgetSchema),
+  FACTORY: factorySchema,
+  FACTORY_ARRAY: arrayOf(factorySchema),
 }
 
 // Action key that carries API call info interpreted by this Redux middleware.

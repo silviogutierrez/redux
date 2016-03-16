@@ -128,6 +128,22 @@ export function loadStargazers(fullName, nextPage) {
   }
 }
 
+export function fetchWidgets() {
+  return {
+    [CALL_API]: {
+      types: [ '1', '2', '3' ],
+      endpoint: '/widgets/',
+      schema: Schemas.WIDGET_ARRAY,
+    }
+  }
+}
+
+export function loadWidgets() {
+  return (dispatch, getState) => {
+    return dispatch(fetchWidgets())
+  }
+}
+
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE'
 
 // Resets the currently visible error message.

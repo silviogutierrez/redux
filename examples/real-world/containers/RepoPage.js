@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { loadRepo, loadStargazers } from '../actions'
+import { loadRepo, loadStargazers, loadWidgets } from '../actions'
 import Repo from '../components/Repo'
 import User from '../components/User'
 import List from '../components/List'
@@ -19,6 +19,7 @@ class RepoPage extends Component {
   }
 
   componentWillMount() {
+      this.props.loadWidgets();
     loadData(this.props)
   }
 
@@ -95,5 +96,6 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(mapStateToProps, {
   loadRepo,
-  loadStargazers
+  loadStargazers,
+  loadWidgets,
 })(RepoPage)

@@ -10,6 +10,14 @@ var compiler = webpack(config)
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
 app.use(webpackHotMiddleware(compiler))
 
+app.get('/widgets/', function(req, res) {
+    res.send(WIDGETS);
+});
+
+app.get('/factories/', function(req, res) {
+    res.send(FACTORIES);
+});
+
 app.use(function(req, res) {
   res.sendFile(__dirname + '/index.html')
 })
@@ -21,3 +29,29 @@ app.listen(port, function(error) {
     console.info("==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.", port, port)
   }
 })
+
+const FACTORIES = [
+    {
+        id: 1,
+        name: 'Casa de Silvio',
+    },
+    {
+        id: 2,
+        name: 'El Tequilazo',
+    },
+];
+
+const WIDGETS = [
+    {
+        id: 11,
+        name: 'Widget 1',
+        cost: 300,
+        factory: FACTORIES[0],
+    },
+    {
+        id: 12,
+        name: 'Widget 2',
+        cost: 200,
+        factory: FACTORIES[1],
+    },
+];
