@@ -4,6 +4,7 @@ import { loadRepo, loadStargazers, loadWidgets } from '../actions'
 import Repo from '../components/Repo'
 import User from '../components/User'
 import List from '../components/List'
+import WidgetList from '../components/WidgetList.tsx'
 
 function loadData(props) {
   const { fullName } = props
@@ -19,7 +20,7 @@ class RepoPage extends Component {
   }
 
   componentWillMount() {
-      this.props.loadWidgets();
+    this.props.loadWidgets();
     loadData(this.props)
   }
 
@@ -57,6 +58,7 @@ class RepoPage extends Component {
               onLoadMoreClick={this.handleLoadMoreClick}
               loadingLabel={`Loading stargazers of ${name}...`}
               {...stargazersPagination} />
+        <WidgetList></WidgetList>
       </div>
     )
   }
