@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 import { loadRepo, loadStargazers, loadWidgets } from '../actions'
-import Repo from '../components/Repo'
-import User from '../components/User'
-import List from '../components/List'
+import {default as TRepo} from '../components/Repo'
+import {default as TUser} from '../components/User'
+import {default as TList} from '../components/List'
 import WidgetList from '../components/WidgetList.tsx'
 
 function loadData(props) {
@@ -12,7 +12,12 @@ function loadData(props) {
   props.loadStargazers(fullName)
 }
 
-class RepoPage extends Component {
+
+let User = TUser as any;
+let Repo = TRepo as any;
+let List = TList as any;
+
+class RepoPage extends React.Component<any, any> {
   constructor(props) {
     super(props)
     this.renderUser = this.renderUser.bind(this)
@@ -36,7 +41,7 @@ class RepoPage extends Component {
 
   renderUser(user) {
     return (
-      <User user={user}
+      <User as any user={user}
             key={user.login} />
     )
   }
@@ -62,17 +67,6 @@ class RepoPage extends Component {
       </div>
     )
   }
-}
-
-RepoPage.propTypes = {
-  repo: PropTypes.object,
-  fullName: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  owner: PropTypes.object,
-  stargazers: PropTypes.array.isRequired,
-  stargazersPagination: PropTypes.object,
-  loadRepo: PropTypes.func.isRequired,
-  loadStargazers: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state, ownProps) {
