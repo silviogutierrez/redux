@@ -2,7 +2,9 @@
   "compilerOptions": {
     "target": "es5",
     "sourceMap": true,
-    "jsx": "react"
+    "jsx": "react",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "node_modules",
