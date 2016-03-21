@@ -5,6 +5,7 @@ import {default as TRepo} from '../components/Repo'
 import {default as TUser} from '../components/User'
 import {default as TList} from '../components/List'
 import WidgetList from '../components/WidgetList.tsx'
+import {Widget, State} from '../interfaces';
 
 function loadData(props) {
   const { fullName } = props
@@ -17,7 +18,20 @@ let User = TUser as any;
 let Repo = TRepo as any;
 let List = TList as any;
 
-class RepoPage extends React.Component<any, any> {
+interface Props {
+    repo: any;
+    fullName: string;
+    name: string;
+    owner: any;
+    stargazers: any[];
+    stargazersPagination: any;
+    loadRepo: Function;
+    loadStargazers: Function;
+    loadWidgets: Function;
+    widgets: {[index: string]: Widget};
+}
+
+class RepoPage extends React.Component<Props, any> {
   constructor(props) {
     super(props)
     this.renderUser = this.renderUser.bind(this)
@@ -63,17 +77,17 @@ class RepoPage extends React.Component<any, any> {
               onLoadMoreClick={this.handleLoadMoreClick}
               loadingLabel={`Loading stargazers of ${name}...`}
               {...stargazersPagination} />
-        <WidgetList></WidgetList>
+        <WidgetList widgets={this.props.widgets}></WidgetList>
       </div>
     )
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state: State, ownProps) {
   const { login, name } = ownProps.params
   const {
     pagination: { stargazersByRepo },
-    entities: { users, repos }
+    entities: { users, repos, widgets }
   } = state
 
   const fullName = `${login}/${name}`
@@ -81,6 +95,7 @@ function mapStateToProps(state, ownProps) {
   const stargazers = stargazersPagination.ids.map(id => users[id])
 
   return {
+    widgets,
     fullName,
     name,
     stargazers,

@@ -1,7 +1,14 @@
 import * as React from 'react';
+import {Widget} from '../interfaces';
 
-export default class WidgetList extends React.Component<any, any> {
+interface Props {
+    widgets: Widget[];
+}
+
+export default class WidgetList extends React.Component<Props, any> {
     render() {
-        return <div>I am working</div>
+        return <div>
+            {this.props.widgets.map(widget => <div>{widget.name}</div>)}
+        </div>
     }
 }
