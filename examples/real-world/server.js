@@ -10,11 +10,11 @@ var compiler = webpack(config)
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
 app.use(webpackHotMiddleware(compiler))
 
-app.get('/widgets/', function(req, res) {
+app.get('/api/widgets/', function(req, res) {
     res.send(WIDGETS);
 });
 
-app.get('/factories/', function(req, res) {
+app.get('/api/factories/', function(req, res) {
     res.send(FACTORIES);
 });
 
