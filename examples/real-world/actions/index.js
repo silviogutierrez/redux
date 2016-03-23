@@ -132,8 +132,18 @@ export function fetchWidgets() {
   return {
     [CALL_API]: {
       types: [ '1', '2', '3' ],
-      endpoint: '/widgets/',
+      endpoint: '/api/widgets/',
       schema: Schemas.WIDGET_ARRAY,
+    }
+  }
+}
+
+export function fetchWidget(id) {
+  return {
+    [CALL_API]: {
+      types: [ 'A', 'B', 'C' ],
+      endpoint: `/api/widgets/${id}/`,
+      schema: Schemas.WIDGET,
     }
   }
 }
@@ -141,6 +151,13 @@ export function fetchWidgets() {
 export function loadWidgets() {
   return (dispatch, getState) => {
     return dispatch(fetchWidgets())
+  }
+}
+
+
+export function loadWidget(id) {
+  return (dispatch, getState) => {
+    return dispatch(fetchWidget(id))
   }
 }
 
