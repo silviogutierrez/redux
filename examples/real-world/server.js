@@ -15,9 +15,11 @@ app.get('/api/widgets/', function(req, res) {
 });
 
 app.get('/api/widgets/:id/', function(req, res) {
-    res.send(WIDGETS.find(function(w) {
-        return w.id === parseInt(req.params.id);
-    }));
+    setTimeout(function() {
+        res.send(WIDGETS.find(function(w) {
+            return w.id === parseInt(req.params.id);
+        }));
+    }, 3000);
 });
 
 app.get('/api/factories/', function(req, res) {
