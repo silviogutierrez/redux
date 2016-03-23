@@ -7,6 +7,8 @@ import {default as TList} from '../components/List'
 import WidgetList from '../components/WidgetList.tsx'
 import {Widget, State} from '../interfaces';
 
+import _ from 'lodash';
+
 function loadData(props) {
   const { fullName } = props
   props.loadRepo(fullName, [ 'description' ])
@@ -28,7 +30,7 @@ interface Props {
     loadRepo: Function;
     loadStargazers: Function;
     loadWidgets: Function;
-    widgets: {[index: string]: Widget};
+    widgets: Widget[];
 }
 
 class RepoPage extends React.Component<Props, any> {
@@ -95,7 +97,7 @@ function mapStateToProps(state: State, ownProps) {
   const stargazers = stargazersPagination.ids.map(id => users[id])
 
   return {
-    widgets,
+    widgets: _.values<Widget>(widgets),
     fullName,
     name,
     stargazers,
